@@ -22,7 +22,7 @@ int main() {
     int currentSum = 0;
     int lastSum = 0;
 
-    int topThree[3] = {4,1,3};
+    int topThree[3] = {0,0,0};
 
     FILE *file = fopen("list.txt", "r");
 
