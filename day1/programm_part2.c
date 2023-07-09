@@ -1,4 +1,19 @@
 #include <stdio.h>
+
+int IndexOfSmallestNumber(int array[]){
+    int smallest = array[0];
+    int minIndex = 0;
+    int size = sizeof(array) / sizeof(array[0]) + 1;
+    for (int i = 0; i < size; i++)
+        {
+            if(array[i] < smallest)
+            {
+                smallest = array[i];
+                minIndex = i;
+            }
+        }
+    return minIndex;
+}
 int main() {
 
     char list[20][1000];
@@ -7,7 +22,7 @@ int main() {
     int currentSum = 0;
     int lastSum = 0;
 
-    int topThree[3];
+    int topThree[3] = {4,1,3};
 
     FILE *file = fopen("list.txt", "r");
 
@@ -20,23 +35,12 @@ int main() {
     while (fgets(line, sizeof(line), file)) {
         if (line[0] == '\n' || line[0] == '\0') {
 
-            // compare with last sum
-            // set as lastSum
-
-            printf("Next elve\n");
-
-            if ( currentSum > lastSum)
-            {
-                //printf("CurrentSum (%d) is bigger than LastSum (%d): \n",currentSum,lastSum);
-                lastSum = currentSum;
-                currentSum = 0;
-                printf("CurrentSum: %d", currentSum);
-
+            if (topThree[IndexOfSmallestNumber(topThree)] < currentSum){
+                topThree[IndexOfSmallestNumber(topThree)] = currentSum;
             }
-            else if (currentSum < lastSum)
-            {
-                currentSum = 0;
-            }
+            printf("Current top 3: %d, %d, %d \n", topThree[0],topThree[1],topThree[2]);
+            currentSum = 0;
+
 
         }
         else  {
@@ -50,7 +54,7 @@ int main() {
 
     fclose(file);  // Schließen der Datei
 
-    printf("%d", lastSum);
+    printf("Sum: %d \n", topThree[0]+topThree[1]+topThree[2]);
 
     while (1)
     {
