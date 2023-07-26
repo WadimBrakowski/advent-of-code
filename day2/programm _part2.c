@@ -15,6 +15,10 @@ Loss = 0 Points
 Draw = 3 Points
 Win = 6 Points
 
+X i have to lose
+Y draw
+Z win
+
 */
 
 int PointsForShape(char shape){
@@ -51,6 +55,30 @@ int PointsForResult(char opponent, char player){
 
 }
 
+char CorrectMove(char opponent, char indicated){
+
+    switch (indicated)
+    {
+    case 'X':
+        // I have to lose
+        if (opponent == 'A') return 'Z';
+        else if (opponent == 'B') return 'X';
+        else if (opponent == 'C') return 'Y';
+
+    case 'Y':
+        // Draw
+        if (opponent == 'A') return 'X';
+        else if (opponent == 'B') return 'Y';
+        else if (opponent == 'C') return 'Z';
+
+    case 'Z':
+        //I have to win
+        if (opponent == 'A') return 'Y';
+        else if (opponent == 'B') return 'Z';
+        else if (opponent == 'C') return 'X';
+    }
+}
+
 
 int main(int argc, char const *argv[])
 {
@@ -58,6 +86,7 @@ int main(int argc, char const *argv[])
 
     char opponent;
     char player;
+    char indicated;
 
     int lineNumber = 0;
 
@@ -74,8 +103,13 @@ int main(int argc, char const *argv[])
     }
 
     while (fgets(line, sizeof(line), file)) {
+
+        opponent = line[0];
+        indicated = line[2];
+
+        player = CorrectMove(opponent, indicated);
         
-        totalScore += PointsForShape(line[2])+ PointsForResult(line[0],line[2]);
+        totalScore += PointsForShape(player)+ PointsForResult(opponent, player);
         
 
     }
