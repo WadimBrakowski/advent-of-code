@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h> 
+#include <string.h>
 
 int Priority(char itemType){
 
@@ -62,52 +63,56 @@ int Priority(char itemType){
 
 int main(int argc, char const *argv[])
 {
-    char line[60];
+    char line[3][50];
 
     int score;
-    int backpackLength;
 
     bool found = false;
+    int counter = 0;
 
 
 
     FILE *file = fopen("input.txt", "r");
 
+    
 
-    while (fgets(line, sizeof(line), file))
+
+    while (fgets(line[counter], sizeof(line[counter]), file))
     {
-        // get length of backpack
-        for (int i = 0; i < sizeof(line); i++)
+        counter++;
+        if (counter == 3)
         {
-            
-            if(line[i] == '\0')
+            for (int i = 0; i < strlen(line[0]); i++)
             {
-                backpackLength = i;
-                break;
-            }
-            
-        }
-
-        for (int i = 0; i < backpackLength/2; i++)
-        {
-            for (int j = backpackLength-1; j >= backpackLength/2; j--)
-            {
-                if (line[i] == line[j])
+                for (int j = 0; j < strlen(line[1]); j++)
                 {
-                    printf("%c\n", line[j]);
-                    score += Priority(line[j]);
-                    found = true;
-                    break;
+                    for (int k = 0; k < strlen(line[2]); k++)
+                    {
+                        if(line[0][i] == line[1][j] &&
+                           line[0][i] == line[2][k])
+                        {
+
+
+                            score += Priority(line[2][k]);
+                            printf("Char: %c\n", line[2][k]);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(found) break;
                 }
+                if(found) break;
             }
 
-            if(found) break;
+            counter = 0;
+            found = false;
+
             
         }
-        found = false;
+        
     }
 
-    printf("%d\n", score);
+    printf("Score: %d\n", score);
     
     return 0;
 }
