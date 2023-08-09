@@ -3,25 +3,12 @@
 
 int main(int argc, char const *argv[])
 {
-/*     char cargo[3][20] = {
+    char cargo[3][20] = {
         {'Z','N'},
         {'M','C','D'},
         {'P'}
-    }; */
-
-    char cargo[9][50] = {
-        {'W','R','F'},
-        {'T','H','M','C','D','V','W','P'},
-        {'P','M','Z','N','L'},
-
-        {'J','C','H','R'},
-        {'C','P','G','H','Q','T','B'},
-        {'G','C','W','L','F','Z'},
-
-        {'W','V','L','Q','Z','J','G','C'},
-        {'P','N','R','F','W','T','V','C'},
-        {'J','W','H','G','R','S','V'}
     };
+
     
     char line[30];
 
